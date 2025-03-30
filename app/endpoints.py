@@ -3,13 +3,12 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from typing import List
 import jwt
-from jwt import PyJWTError
 import requests
-from fastapi import FastAPI, UploadFile, HTTPException, Depends, status, Query, APIRouter
+from fastapi import UploadFile, HTTPException, Depends, Query, APIRouter
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-from database import (async_session, User, AudioFile, Config,
-                     engine, init_db, Base, async_session)
-from models import UserBase, Token, AudioFileInfo
+from app.database import (User, AudioFile, Config,
+                          init_db, async_session)
+from app.models import UserBase, Token, AudioFileInfo
 from sqlalchemy import select
 
 router = APIRouter()
@@ -36,7 +35,7 @@ async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(s
             if user is None:
                 raise HTTPException(status_code=401, detail="User not found")
             return user
-    except PyJWTError:
+    except :
         raise HTTPException(status_code=401, detail="Invalid token")
 
 async def get_current_superuser(current_user: User = Depends(get_current_user)):

@@ -11,8 +11,8 @@ class Config:
     ACCESS_TOKEN_EXPIRE_MINUTES = 1440  # 24 hours
     YANDEX_CLIENT_ID = "78f8ad51b5ca4fb289ccefb21f957bb5"
     YANDEX_CLIENT_SECRET = "b6c9d88569184d07849ef1294f69bb13"
-    DATABASE_URL = "postgresql+asyncpg://postgres:admin@localhost:5432/audio_service"
-    AUDIO_STORAGE_PATH = "./audio_storage"
+    DATABASE_URL = "postgresql+asyncpg://postgres:admin@db:5432/audio_service"
+    AUDIO_STORAGE_PATH = "audio_storage"
     SUPERUSER_EMAILS = ["admin@example.com"]  # List of superuser emails
 
 os.makedirs(Config.AUDIO_STORAGE_PATH, exist_ok=True)
